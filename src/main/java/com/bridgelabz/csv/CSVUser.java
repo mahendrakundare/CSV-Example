@@ -46,6 +46,4 @@ public class CSVUser {
     public void setCountry(String country) {
         this.country = country;
     }
-
-    // Getters and Setters (Omitted for brevity)
 }

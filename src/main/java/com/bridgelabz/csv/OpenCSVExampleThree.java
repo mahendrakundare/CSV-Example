@@ -20,19 +20,20 @@ public class OpenCSVExampleThree {
 
     public static void main(String[] args) throws IOException {
         try (
-                Reader reader = Files.newBufferedReader(Paths.get(CSV_PATH));
+                Reader reader = Files.newBufferedReader(Paths.get(CSV_PATH))
 //                CSVReader csvReader = new CSVReader(reader);
         ) {
 
-            CsvToBean<CSVUser>csvToBean = new CsvToBeanBuilder(reader)
+            CsvToBean<CSVUser> csvToBean = new CsvToBeanBuilder(reader)
                     .withType(CSVUser.class)
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
+//            Iterator<CSVUser> csvUserIterator = csvToBean.iterator();
 
-            Iterator<CSVUser> csvUserIterator = csvToBean.iterator();
+            // Reads all CSV contents into memory (Not suitable for large CSV files)
+            List<CSVUser> csvUsers = csvToBean.parse();
 
-            while (csvUserIterator.hasNext()) {
-                CSVUser csvUser = csvUserIterator.next();
+            for(CSVUser csvUser: csvUsers) {
                 System.out.println("Name : " + csvUser.getName());
                 System.out.println("Email : " + csvUser.getEmail());
                 System.out.println("PhoneNo : " + csvUser.getPhoneNo());
